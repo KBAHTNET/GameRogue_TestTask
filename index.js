@@ -8,7 +8,8 @@ function main() {
 }
 
 function injectScripts() {
-  const scripts = [ './Engine/person.js', './Engine/actor.js', './Engine/enemy.js', './Engine/interface.js', './Engine/controller.js',
+  const scripts = [ './Engine/person.js', './Engine/actor.js', './Engine/enemy.js', './Engine/actor_stats.js',
+                    './Engine/interface.js', './Engine/controller.js',
                     './Engine/game.js', './Engine/map.js', './Engine/utils.js', 
                   ];
 

@@ -17,10 +17,12 @@ class Game {
     this.maxEnemies = 10;
     this.ticksForGenEnemy = 1000;
 
+    /**@type {Array<StatsUpgrade>}*/
     this.HPs = [];
     this.maxHPs = 10;
     this.ticksForGenHP = 1000;
 
+    /**@type {Array<StatsUpgrade>}*/
     this.swordUPs = [];
     this.maxSwordUPs = 2;
     this.ticksForGenSW = 1000;
@@ -49,6 +51,20 @@ class Game {
         });
       }
 
+      if(this.HPs) {
+        this.HPs.forEach(HP => {
+          HP.checkForCollision(this.actor);
+          this.DrawStatsUPs(HP);
+        });
+      }
+
+      if(this.swordUPs) {
+        this.swordUPs.forEach(swup => {
+          swup.checkForCollision(this.actor);
+          this.DrawStatsUPs(swup);
+        });
+      }
+
       this.ticksForGenEnemy--;
       if(this.maxEnemies > this.enemies.length && this.ticksForGenEnemy < 0) {
         this.enemies.push(new Enemy(this.map));
@@ -58,12 +74,16 @@ class Game {
       this.ticksForGenHP--;
       if(this.maxHPs > this.HPs.length && this.ticksForGenHP < 0) {
         // this.HPs.push(new Enemy(this.map));
+        const position = this.map.findRandomFreePos();
+        this.HPs.push(new StatsUpgrade('hp', getRandomInt(10, 40), {x: position[0], y: position[1]}));
         this.ticksForGenHP = 1000;
       }
 
       this.ticksForGenSW--;
       if(this.maxSwordUPs > this.swordUPs.length && this.ticksForGenSW < 0) {
         // this.swordUPs.push(new Enemy(this.map));
+        const position = this.map.findRandomFreePos();
+        this.HPs.push(new StatsUpgrade('sw', getRandomInt(3, 15), {x: position[0], y: position[1]}));
         this.ticksForGenSW = 1000;
       }
 
@@ -96,8 +116,25 @@ class Game {
     }
   }
 
-  DrawHP() {
+  /**@type {StatsUpgrade}*/
+  DrawStatsUPs(thing) {
+    if(!thing.isRendered) {
+      const tilePos = thing.position.y * this.map.mapBlocks[0].length + thing.position.x;
+      const tileToDraw = document.querySelectorAll('.tile')[tilePos];
+      
+      const tile = thing.tile;
+      tile.style.width = tileToDraw.style.width;
+      tile.style.height = tileToDraw.style.height;
 
+      const field = document.querySelector('.field');
+
+      tile.style.top = tileToDraw.getBoundingClientRect().y - field.getBoundingClientRect().y + 'px';
+      tile.style.left = tileToDraw.getBoundingClientRect().x - field.getBoundingClientRect().x + 'px';
+
+      field.appendChild(tile);
+
+      thing.isRendered = true;
+    }
   }
 
   DrawEnemies() {
