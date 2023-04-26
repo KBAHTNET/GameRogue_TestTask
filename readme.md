@@ -23,4 +23,4 @@ ___
 
 
 
-[![Watch the video](https://github.com/KBAHTNET/GameRogue_TestTask/blob/main/descr/funny%20bugs.mp4)](https://github.com/KBAHTNET/GameRogue_TestTask/blob/main/descr/funny%20bugs.mp4)
+[![Видео мем](https://www.nawpic.com/media/2020/gigachad-nawpic.jpg)](https://disk.yandex.ru/i/cU1zmxxqRQZznw)
