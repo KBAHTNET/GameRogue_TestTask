@@ -83,7 +83,7 @@ class Game {
       if(this.maxSwordUPs > this.swordUPs.length && this.ticksForGenSW < 0) {
         // this.swordUPs.push(new Enemy(this.map));
         const position = this.map.findRandomFreePos();
-        this.HPs.push(new StatsUpgrade('sw', getRandomInt(3, 15), {x: position[0], y: position[1]}));
+        this.swordUPs.push(new StatsUpgrade('sw', getRandomInt(3, 15), {x: position[0], y: position[1]}));
         this.ticksForGenSW = 1000;
       }
 
