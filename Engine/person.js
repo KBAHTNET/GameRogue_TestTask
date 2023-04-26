@@ -15,6 +15,7 @@ class Person {
     this.health = 100;
     this.damage = 10;
 
+    /**@type {GameMap}*/
     this.map = map;
 
   }
@@ -58,15 +59,15 @@ class Person {
 
     }
 
-    const playGetDamageSound = () => {
-      const sound = new Audio('./sounds/damaged.mp3');
-      sound.play();
-    };
-
-    playGetDamageSound();
+    new Audio('./sounds/damaged.mp3').play();
   }
 
   attack() {
+    this.map.createDamagedZone({x:this.position.x + 1, y:this.position.y}, this.damage);
+    this.map.createDamagedZone({x:this.position.x - 1, y:this.position.y}, this.damage);
+    this.map.createDamagedZone({x:this.position.x, y:this.position.y + 1}, this.damage);
+    this.map.createDamagedZone({x:this.position.x, y:this.position.y - 1}, this.damage);
+
     const createAttackEffect = () => {
       const attackBlock = document.createElement('div');
       
@@ -86,10 +87,7 @@ class Person {
     };
     createAttackEffect();
 
-    const playAttackSound = (() => {
-      const sound = new Audio('./sounds/hit.mp3');
-      sound.play();
-    })();
+    new Audio('./sounds/hit.mp3').play();
   }
 
   /**

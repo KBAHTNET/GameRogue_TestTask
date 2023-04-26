@@ -43,13 +43,24 @@ class Game {
       // debugger;
       this.DrawPerson(this.actor);
       // this.DrawInventory();
-      
+
+      let enemiesToRemove = [];
       if(this.enemies) {
         this.enemies.forEach(enemy => {
-          enemy.walk();
-          this.DrawPerson(enemy);
+          this.map.checkPersonsForDamage(enemy);
+          if(enemy.health <= 0) {
+            enemiesToRemove.push(enemy);
+            enemy.tile.remove();
+          } else {
+            enemy.walk();
+            this.DrawPerson(enemy);
+          }
         });
       }
+      this.enemies = this.enemies.filter(it => !enemiesToRemove.includes(it));
+      this.kills += enemiesToRemove.length;
+      enemiesToRemove = null;
+      this.map.damagedZones = [];
 
       let HPsToRemove = [];
       if(this.HPs) {
@@ -159,7 +170,7 @@ class Game {
 
   /**
    * 
-   * @param {Person} enemy 
+   * @param {Person} person 
    */
   DrawPerson(person) {
     const renderPerson = () => {
@@ -201,6 +212,12 @@ class Game {
           tile.style.transform = 'scaleY(1)';
           break;
       }
+
+      tile.innerHTML = `
+        <div class="hp-progress" style="top:-10px;left:0;position:relative;width:100%;height:5px;background-color:gray;">
+          <div class="hp-current" style="width:${person.health}%;height:100%;background-color:red;"box-shadow:0 0 7px 3px red></div>
+        </div>
+      `;
   
       field.appendChild(tile);
 

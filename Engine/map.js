@@ -21,6 +21,9 @@ class GameMap {
     /**@type {Array<{leftTopPointPos: {x:number,y:number}, size: {width:number, height: number}, spawnType:'sword'|'health', spawnPos: {x:number,y:number}}>}*/
     this.rooms = [];
 
+    /**@type {Array<{x:number,y:number;damage:number}>}*/
+    this.damagedZones = [];
+
     for (let y = 0; y < rectangle.height; y++) {
       this.mapBlocks[y] = [];
       for (let x = 0; x < rectangle.width; x++) {
@@ -273,15 +276,26 @@ class GameMap {
     return freeCells[getRandomInt(0, freeCells.length - 1)];
   }
 
-  restoreHils() {
-    this.rooms.forEach(room => {
-      if(room.spawnType === "health") {
-        
-      }
-    });
+
+
+  /**
+   * 
+   * @param {{x:number, y:number}} position 
+   * @param {number} damage 
+   */
+  createDamagedZone(position, damage) {
+    this.damagedZones.push({x:position.x, y:position.y, damage});
   }
 
-  createSwordUp() {
-
+  /**
+   * 
+   * @param {Person} person 
+   */
+  checkPersonsForDamage(person) {
+    for(let i = 0; i < this.damagedZones.length; i++) {
+      if(person.position.x === this.damagedZones[i].x && person.position.y === this.damagedZones[i].y) {
+        person.getDamage(this.damagedZones[i].damage);
+      }
+    }
   }
 }
