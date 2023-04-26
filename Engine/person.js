@@ -10,6 +10,7 @@ class Person {
     this.isRendered = false;
 
     this.position = {x, y}
+    this.direction = 0; //0 - watch rigth, 1 - watch left, 2 - watch top, 3 - watch bottom
 
     this.health = 100;
     this.damage = 10;
@@ -28,6 +29,16 @@ class Person {
       if(this.map.getCell(waitPos.x, waitPos.y) === 1) {
         this.position.x = waitPos.x;
         this.position.y = waitPos.y;
+        
+        if(directionLambda.lambdaX === 1) {
+          this.direction = 0;
+        } else if (directionLambda.lambdaX === -1) {
+          this.direction = 1;
+        } else if (directionLambda.lambdaY === -1) {
+          this.direction = 2;
+        } else if (directionLambda.lambdaY === 1) {
+          this.direction = 3;
+        }
       }
       this.isUpdate = true;
     }
@@ -40,11 +51,11 @@ class Person {
   isCanMove(directionLambda) {
     try {
     const waitPos = {x: this.position.x + directionLambda.lambdaX, y: this.position.y + directionLambda.lambdaY};
-    if(this.map[waitPos.y][waitPos.x] && this.map.getCell(waitPos.x, waitPos.y) === 1) {
+    if(/*this.map[waitPos.y][waitPos.x] &&*/ this.map.getCell(waitPos.x, waitPos.y) === 1) {
       return true;
     }
   }
-  catch{
+  catch(e) {
     return false;
   }
     return false;
