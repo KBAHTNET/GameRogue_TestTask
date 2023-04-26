@@ -22,5 +22,5 @@ ___
 - :white_check_mark:Не должно быть недостижимых зон
 
 
-#Видео мем (клик на картинку)
+# Видео мем (клик на картинку)
 [![Видео мем](https://www.nawpic.com/media/2020/gigachad-nawpic.jpg)](https://disk.yandex.ru/i/cU1zmxxqRQZznw)
