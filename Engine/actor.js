@@ -10,13 +10,17 @@ class Actor extends Person {
     super(x, y, './images/tile-P.png', map);
     this.tile.classList.add('actor-tile');
 
-    this.health = 66;
+    this.health = 45;
     this.damage = 5;
 
     this.inventory = [];
   }
 
-  attack() {
-
+  death() {
+    
   }
+
+  // attack() {
+
+  // }
 }

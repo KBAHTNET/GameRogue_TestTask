@@ -42,6 +42,54 @@ class Person {
       }
       this.isUpdate = true;
     }
+
+    const playMoveSound = () => {
+      const sound = new Audio('./sounds/move.mp3');
+      sound.play();
+    };
+
+    playMoveSound();
+
+  }
+
+  getDamage(damage) {
+    this.health -= damage;
+    if(this.health <= 0) {
+
+    }
+
+    const playGetDamageSound = () => {
+      const sound = new Audio('./sounds/damaged.mp3');
+      sound.play();
+    };
+
+    playGetDamageSound();
+  }
+
+  attack() {
+    const createAttackEffect = () => {
+      const attackBlock = document.createElement('div');
+      
+      attackBlock.style.position = 'absolute';
+      attackBlock.style.left = '0';
+      attackBlock.style.top = '0';
+      attackBlock.style.zIndex = '100';
+
+      setTimeout(() => {
+        attackBlock.classList.remove('attack-effect');
+        attackBlock.remove();
+      }, 200);
+
+      attackBlock.classList.add('attack-effect');
+      this.tile.appendChild(attackBlock);
+
+    };
+    createAttackEffect();
+
+    const playAttackSound = (() => {
+      const sound = new Audio('./sounds/hit.mp3');
+      sound.play();
+    })();
   }
 
   /**

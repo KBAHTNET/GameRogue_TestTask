@@ -4,7 +4,7 @@ class Game {
     this.timer = 0;
     this.fps = 60;
 
-    /**@type {'game'|'pause'|null}*/
+    /**@type {'game'|'pause'|'over'|null}*/
     this.gameState = 'game';
 
     this.map = new GameMap({width:35, height:21});
@@ -15,6 +15,15 @@ class Game {
     /**@type {Array<Enemy>}*/
     this.enemies = [];
     this.maxEnemies = 10;
+    this.ticksForGenEnemy = 1000;
+
+    this.HPs = [];
+    this.maxHPs = 10;
+    this.ticksForGenHP = 1000;
+
+    this.swordUPs = [];
+    this.maxSwordUPs = 2;
+    this.ticksForGenSW = 1000;
 
     this.courotine = null;
   }
@@ -40,8 +49,22 @@ class Game {
         });
       }
 
-      if(this.maxEnemies > this.enemies.length) {
+      this.ticksForGenEnemy--;
+      if(this.maxEnemies > this.enemies.length && this.ticksForGenEnemy < 0) {
         this.enemies.push(new Enemy(this.map));
+        this.ticksForGenEnemy = 1000;
+      }
+
+      this.ticksForGenHP--;
+      if(this.maxHPs > this.HPs.length && this.ticksForGenHP < 0) {
+        // this.HPs.push(new Enemy(this.map));
+        this.ticksForGenHP = 1000;
+      }
+
+      this.ticksForGenSW--;
+      if(this.maxSwordUPs > this.swordUPs.length && this.ticksForGenSW < 0) {
+        // this.swordUPs.push(new Enemy(this.map));
+        this.ticksForGenSW = 1000;
       }
 
 
@@ -49,6 +72,13 @@ class Game {
       DrawTimer(this.timer);
       DrawKills(this.kills);
       DrawStats(this.actor);
+
+      if(this.actor.health < 0) {
+        this.gameState = 'over';
+      }
+    }
+    if(this.gameState == 'over') {
+      new Audio('./sounds/death.mp3').play();
     }
   }
 

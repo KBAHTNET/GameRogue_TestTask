@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', main);
 
 function main() {
+  alert("Начать");
   injectScripts();
 }
 
@@ -11,18 +12,6 @@ function injectScripts() {
                     './Engine/game.js', './Engine/map.js', './Engine/utils.js', 
                   ];
 
-  const scriptsNumber = scripts.length;
-
-  // const readyScripts = [];
-
-  // scripts.forEach(scriptPath => {
-  //   const script = document.createElement('script');
-  //   script.type = 'text/javascript';
-  //   script.src = scriptPath;
-  //   document.body.appendChild(script);
-
-  //   script.onload = () => readyScripts.push(1);
-  // });
   let scriptNumber = 0;
   const loadscript = () => {
     if (scriptNumber === scripts.length) {
@@ -41,23 +30,5 @@ function injectScripts() {
   };
 
   loadscript();
-
-
-  // while(scripts) {
-  //   const scriptPath = scripts.shift();
-  //   const script = document.createElement('script');
-  //   script.type = 'text/javascript';
-  //   // @ts-ignore
-  //   script.src = scriptPath;
-  //   document.body.appendChild(script);
-
-  // }
-
-  // const waitInterval = setInterval(() => {
-  //   if(readyScripts.length === scriptsNumber ) {
-  //     clearInterval(waitInterval);
-  //     new Game().init();
-  //   }
-  // }, 10);
 }
 

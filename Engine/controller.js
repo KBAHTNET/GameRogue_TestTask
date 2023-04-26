@@ -23,8 +23,8 @@ function initActorController(actor) {
       actor.move({lambdaX:1,lambdaY:0});
     }
 
-    if(e.key === ' ') {
-
+    if(e.key === ' ' || e.code == 'Space') {
+      actor.attack();
     }
     console.log(e);
   });

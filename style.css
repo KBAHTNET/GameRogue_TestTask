@@ -255,4 +255,32 @@ h1 {
   background-size: 100%;
   background-image: url(images/tile-.png);
   z-index: 5;
+  position: relative;
+}
+
+.attack-effect {
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: red;
+  box-shadow: 0 0 1px 1px red;
+
+  animation: attack .2s infinite alternate forwards ease-in-out;
+  /* animation-name: attack;
+  animation-duration: .2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite; */
+  /* animation-timing-function: linear; */
+  /* animation-iteration-count: infinite; */
+}
+
+@keyframes attack {
+  0% {
+    box-shadow: 0 0 1px 1px red
+  }
+  100% {
+    box-shadow: 0 0 50px 10px red
+  }
 }

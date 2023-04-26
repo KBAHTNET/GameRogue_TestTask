@@ -272,35 +272,16 @@ class GameMap {
     }
     return freeCells[getRandomInt(0, freeCells.length - 1)];
   }
-}
 
-//#region Heplers
-
-function randomWalk(steps, x1, y1) {
-  let x = x1;
-  let y = y1;
-
-  for (let i = 0; i < steps; i++) {
-    const direction = Math.floor(Math.random() * 4);
-
-    switch (direction) {
-      case 0:
-        x += 1;
-        break;
-      case 1:
-        x -= 1;
-        break;
-      case 2:
-        y += 1;
-        break;
-      case 3:
-        y -= 1;
-        break;
-    }
+  restoreHils() {
+    this.rooms.forEach(room => {
+      if(room.spawnType === "health") {
+        
+      }
+    });
   }
 
-  return { x, y };
+  createSwordUp() {
+
+  }
 }
-
-//#endregion
-
