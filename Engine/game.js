@@ -51,19 +51,37 @@ class Game {
         });
       }
 
+      let HPsToRemove = [];
       if(this.HPs) {
         this.HPs.forEach(HP => {
-          HP.checkForCollision(this.actor);
-          this.DrawStatsUPs(HP);
+          if(HP.checkForCollision(this.actor)) {
+            HPsToRemove.push(HP);
+          }
+          if(!HP.isUsed) {
+            this.DrawStatsUPs(HP);
+          } else {
+            HP.tile.remove();
+          }
         });
       }
+      this.HPs = this.HPs.filter(it => !HPsToRemove.includes(it));
+      HPsToRemove = null;
 
+      let swordsUPsToRemove = [];
       if(this.swordUPs) {
         this.swordUPs.forEach(swup => {
-          swup.checkForCollision(this.actor);
-          this.DrawStatsUPs(swup);
+          if(swup.checkForCollision(this.actor)) {
+            swordsUPsToRemove.push(swup);
+          }
+          if(!swup.isUsed) {
+            this.DrawStatsUPs(swup);
+          } else {
+            swup.tile.remove();
+          }
         });
       }
+      this.swordUPs = this.swordUPs.filter(it => !swordsUPsToRemove.includes(it));
+      swordsUPsToRemove = null;
 
       this.ticksForGenEnemy--;
       if(this.maxEnemies > this.enemies.length && this.ticksForGenEnemy < 0) {
@@ -73,7 +91,6 @@ class Game {
 
       this.ticksForGenHP--;
       if(this.maxHPs > this.HPs.length && this.ticksForGenHP < 0) {
-        // this.HPs.push(new Enemy(this.map));
         const position = this.map.findRandomFreePos();
         this.HPs.push(new StatsUpgrade('hp', getRandomInt(10, 40), {x: position[0], y: position[1]}));
         this.ticksForGenHP = 1000;
@@ -81,7 +98,6 @@ class Game {
 
       this.ticksForGenSW--;
       if(this.maxSwordUPs > this.swordUPs.length && this.ticksForGenSW < 0) {
-        // this.swordUPs.push(new Enemy(this.map));
         const position = this.map.findRandomFreePos();
         this.swordUPs.push(new StatsUpgrade('sw', getRandomInt(3, 15), {x: position[0], y: position[1]}));
         this.ticksForGenSW = 1000;

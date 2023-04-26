@@ -33,6 +33,8 @@ class StatsUpgrade {
 
     /**@type {boolean}*/
     this.isRendered = false;
+
+    this.isUsed = false;
   }
 
   /**
@@ -40,18 +42,29 @@ class StatsUpgrade {
    * @param {Person} person 
    */
   execUP(person) {
-    switch (this.type) {
-      case "hp":
-        person.health += this.value;
-        this.playSoundRestoreHealth();
-        break;
-      case "sw":
-        person.damage += this.value;
-        this.playSoundUpgradeSW();
-        break;
-      default:
-        break;
+    if (!this.isUsed) {
+      switch (this.type) {
+        case "hp":
+          if(person.health + this.value <= 100) {
+            person.health += this.value;
+          } else {
+            person.health = 100;
+          }
+          this.playSoundRestoreHealth();
+          break;
+        case "sw":
+          if (person.damage + this.value <= 100) {
+            person.damage += this.value;
+          } else {
+            person.damage = 100;
+          }
+          this.playSoundUpgradeSW();
+          break;
+        default:
+          break;
+      }
     }
+    this.isUsed = true;
   }
 
   /**
@@ -61,7 +74,9 @@ class StatsUpgrade {
   checkForCollision(person) {
     if(person.position.x === this.position.x && person.position.y === this.position.y) {
       this.execUP(person);
+      return true;
     }
+    return false;
   }
 
   playSoundRestoreHealth() {
