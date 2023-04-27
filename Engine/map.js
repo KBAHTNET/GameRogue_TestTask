@@ -44,11 +44,6 @@ class GameMap {
     return this.mapBlocks[y][x];
   }
 
-  setCell(x, y, val) {
-    //@ts-ignore
-    this.mapBlocks[y][x] = val;
-  }
-
   generateMap() {
     
     const horizontalLines = getRandomInt(1, 3);
@@ -106,7 +101,7 @@ class GameMap {
           if (x >= this.size.width || y >= this.size.height) {
             break;
           }
-          this.setCell(x, y, 1);
+          this.mapBlocks[y][x] = 1;
 
           //#region CheckIntersections
           if (!hasInterSections) {
@@ -210,13 +205,6 @@ class GameMap {
       }
     });
 
-    // while (necessaryHealth) {
-
-    // }
-    // while (necessarySword) {
-    //   necessaryHealth--;
-    // }
-
     let map = '';
     for(let y = 0; y < this.mapBlocks.length; y++) {
       for(let x = 0; x < this.mapBlocks[y].length; x++) {
@@ -275,8 +263,6 @@ class GameMap {
     }
     return freeCells[getRandomInt(0, freeCells.length - 1)];
   }
-
-
 
   /**
    * 

@@ -35,12 +35,6 @@ class Enemy extends Person {
     }
     this.lazy = getRandomInt(10, 100);
 
-    // let accessWays = [
-    //   [this.position.x + 1, this.position.y],
-    //   [this.position.x - 1, this.position.y],
-    //   [this.position.x, this.position.y + 1],
-    //   [this.position.x, this.position.y - 1]
-    // ];
     let lambdaWays = [
       [1, 0],
       [-1, 0],

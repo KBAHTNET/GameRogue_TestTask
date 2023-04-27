@@ -95,7 +95,7 @@ class Person {
   isCanMove(directionLambda) {
     try {
     const waitPos = {x: this.position.x + directionLambda.lambdaX, y: this.position.y + directionLambda.lambdaY};
-    if(/*this.map[waitPos.y][waitPos.x] &&*/ this.map.getCell(waitPos.x, waitPos.y) === 1) {
+    if(this.map.getCell(waitPos.x, waitPos.y) === 1) {
       return true;
     }
   }

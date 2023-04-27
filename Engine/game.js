@@ -205,19 +205,11 @@ class Game {
       const tilePos = person.position.y * this.map.mapBlocks[0].length + person.position.x;
       const tileToDraw = document.querySelectorAll('.tile')[tilePos];
 
-      // console.log(tileToDraw);
-  
-      // const tile = document.createElement('div');
       const tile = person.tile;
-      // tile.style.backgroundImage = 'url(./images/tile-P.png)';
-      // tile.classList.add('actor-tile');
-      // tile.classList.add('tile');
       tile.style.zIndex = '10';
-      // console.log(this.actor.position);
+
       tile.style.width = tileToDraw.style.width;
       tile.style.height = tileToDraw.style.height;
-  
-      // tile.style.position = 'absolute';
 
       const field = document.querySelector('.field');
 
@@ -246,8 +238,6 @@ class Game {
       `;
   
       field.appendChild(tile);
-
-      // person.tile = tile;
 
       person.isRendered = true;
     };
