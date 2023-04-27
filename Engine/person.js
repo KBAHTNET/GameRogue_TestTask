@@ -55,9 +55,7 @@ class Person {
 
   getDamage(damage) {
     this.health -= damage;
-    if(this.health <= 0) {
-
-    }
+    if(this.health < 0) this.health = 0;
 
     new Audio('./sounds/damaged.mp3').play();
   }

@@ -15,17 +15,17 @@ class Game {
     /**@type {Array<Enemy>}*/
     this.enemies = [];
     this.maxEnemies = 10;
-    this.ticksForGenEnemy = 1000;
+    this.ticksForGenEnemy = 500;
 
     /**@type {Array<StatsUpgrade>}*/
     this.HPs = [];
     this.maxHPs = 10;
-    this.ticksForGenHP = 1000;
+    this.ticksForGenHP = 500;
 
     /**@type {Array<StatsUpgrade>}*/
     this.swordUPs = [];
     this.maxSwordUPs = 2;
-    this.ticksForGenSW = 1000;
+    this.ticksForGenSW = 500;
 
     this.courotine = null;
   }
@@ -48,6 +48,7 @@ class Game {
       if(this.enemies) {
         this.enemies.forEach(enemy => {
           this.map.checkPersonsForDamage(enemy);
+          enemy.watchToAttack(this.actor);
           if(enemy.health <= 0) {
             enemiesToRemove.push(enemy);
             enemy.tile.remove();
@@ -60,6 +61,31 @@ class Game {
       this.enemies = this.enemies.filter(it => !enemiesToRemove.includes(it));
       this.kills += enemiesToRemove.length;
       enemiesToRemove = null;
+
+      this.map.checkPersonsForDamage(this.actor);
+      if(this.actor.health <= 0) {
+        this.gameState = "over";
+        debugger;
+
+        new Audio('./sounds/death.mp3').play();
+        const text = document.createElement('div');
+        text.innerText = "П О Т Р А Ч Е Н О";
+        text.style.opacity = "0";
+        text.style.zIndex = '1000';
+        text.style.position = "fixed";
+        text.style.top = "50%";
+        text.style.left = "40%";
+
+        document.body.appendChild(text);
+
+        const int = setInterval(() => {
+          if(text.style.opacity < 0.95) {
+            text.style.opacity = parseFloat(text.style.opacity) + 0.1;
+          } else {
+            clearInterval(int);
+          }
+        }, 20);
+      }
       this.map.damagedZones = [];
 
       let HPsToRemove = [];
@@ -125,7 +151,7 @@ class Game {
       }
     }
     if(this.gameState == 'over') {
-      new Audio('./sounds/death.mp3').play();
+      // new Audio('./sounds/death.mp3').play();
     }
   }
 

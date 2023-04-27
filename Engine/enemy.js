@@ -7,9 +7,26 @@ class Enemy extends Person {
     super(pos[0], pos[1], './images/tile-E.png', map);
 
     this.damage = getRandomInt(20, 60);
-    this.maxSteps = getRandomInt(10, 20);
-    this.waitBeforeAttack = getRandomInt(100, 400);
-    this.lazy = getRandomInt(10,100); //то как долго будет думать перед тем куда сходить
+    this.waitBeforeAttack = getRandomInt(5, 50);
+    this.lazy = getRandomInt(2,400); //то как долго будет думать перед тем куда сходить
+  }
+
+  /**
+   * @param {Person} person 
+   */
+  watchToAttack(person) {
+    if(this.waitBeforeAttack) {
+      return this.waitBeforeAttack--;
+    }
+    if((this.position.x === person.position.x + 1 && this.position.y === person.position.y) || 
+    (this.position.x === person.position.x - 1 && this.position.y === person.position.y) || 
+    (this.position.x === person.position.x && this.position.y === person.position.y + 1) || 
+    (this.position.x === person.position.x && this.position.y === person.position.y - 1)) {
+      console.log('enemy atack');
+      console.log(this.position);
+      this.attack();
+      this.waitBeforeAttack = getRandomInt(20, 500);
+    }
   }
 
   walk() {
