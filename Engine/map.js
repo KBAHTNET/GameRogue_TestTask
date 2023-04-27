@@ -45,6 +45,7 @@ class GameMap {
   }
 
   generateMap() {
+    console.log('gen map start')
     
     const horizontalLines = getRandomInt(1, 3);
     const horizontals = [];
@@ -67,7 +68,7 @@ class GameMap {
     const roomsNumber = getRandomInt(5, 10);
     const rooms = []; //[x, y, width, height]
     for(let i = 0; i < roomsNumber; i ++) {
-      const roomRectangle = [getRandomInt(0, this.size.width), getRandomInt(0, this.size.height), getRandomInt(3,8), getRandomInt(3,8)];
+      const roomRectangle = [getRandomInt(1, this.size.width), getRandomInt(1, this.size.height), getRandomInt(3,8), getRandomInt(3,8)];
       rooms.push(roomRectangle);
     }
 
